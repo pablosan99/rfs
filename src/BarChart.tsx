@@ -63,7 +63,7 @@ export default function BarChart(props: Props) {
     data,
     w,
     h,
-    minX, maxX
+    maxX
   } = props;
   
   const arrRms = data.result.map(x => x.rms);
@@ -150,7 +150,7 @@ export default function BarChart(props: Props) {
       }
       
       // Do not render first rect when it's x1 is lower than 0 (overlap Y axis)
-      if (i == 0 && x1 < 0) {
+      if (i === 0 && x1 < 0) {
         continue;
       }
       if (i >= 1) {
@@ -239,10 +239,10 @@ export default function BarChart(props: Props) {
     }
 
     function handleMouseMove(event: any) {
-      const [_posX, _posY] = d3.pointer(event);
+      const [_posX] = d3.pointer(event);
       
       const posX = Math.abs(Math.round(_posX));
-      const posY = Math.abs(Math.round(_posY));
+      //const posY = Math.abs(Math.round(_posY));
       
       const x0 = x.invert(posX);
       // const y0 = y.invert(posY);
@@ -250,17 +250,17 @@ export default function BarChart(props: Props) {
       // const bisect = d3.bisector(d => { console.log('a', d); return d.x }).left;
       // const bisectY = d3.bisector(d => { console.log('a', d); return d.y }).left;
       
-      const nearest_x1 =  d3.bisector<number, number>((a,b) => {
-        const diff = Math.abs(b-a)
-        console.log(diff, a, b);
-        return a;
-      }).left(arrFreq, x0 );
+      // const nearest_x1 =  d3.bisector<number, number>((a,b) => {
+      //   const diff = Math.abs(b-a)
+      //   console.log(diff, a, b);
+      //   return a;
+      // }).left(arrFreq, x0 );
       const nearest_x = d3.bisectLeft(arrFreq, x0 );
       // const nearest_y = d3.bisect(arrRms, y0);
       
       const selectedFreq = arrFreq[nearest_x];
       // const selectedRms = arrRms[nearest_y];
-      const xs = data.result.filter(x => x.frequency == selectedFreq)
+      const xs = data.result.filter(x => x.frequency === selectedFreq)
       let pixPosX = x(selectedFreq);
       let pixPosY = y(xs.length > 0 ? xs[0]?.rms : 0);
       
@@ -278,8 +278,8 @@ export default function BarChart(props: Props) {
       circle.style("opacity", 0);
       circleInfo.style("opacity", 0)
     }
-    
-  }, [data])
+    // eslint-disable-next-line 
+  }, [data])//, arrFreq, arrRms, height, margin.left, margin.top, maxX, width])
   
   return (
     <svg ref={svgRef} width={svgWidth} height={svgHeight}/>
