@@ -48,6 +48,15 @@ const find_color = (clr_ranges: ColorRange[]) => (val: number): string => {
 
 const color_finder_fn = find_color(color_ranges);
 
+type RectData = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  value: number;
+  clr: string;
+}
+
 export default function BarChart(props: Props) {
 
   const {
@@ -75,17 +84,9 @@ export default function BarChart(props: Props) {
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
     
-    const occupancy_freq_extent = d3.extent(data.occupancy, (d) => d.frequency);
-
-    // [max, min] - [100,0]
-    const occupancy_value_extent = d3.extent(data.occupancy, (d) => d.value);
-
-    // [100, 0]
-    const clr_extent = d3.extent(data.occupancy, (d) => Math.round(d.value));
-
     // Create Y Axis
-    //[max, min]
     const result_value_extent = d3.extent(arrRms, (d) => d).reverse();
+
     // Scale fn
     //@ts-ignore
     const y = d3.scaleLinear().domain(result_value_extent).range([0, height]);
@@ -95,7 +96,6 @@ export default function BarChart(props: Props) {
       .tickFormat((val) => `${val}`);
 
     const yAxisGroup = svgEl.append("g")
-      // .attr("transform", `translate(${margin}, 0)`)
       .attr("stroke", "white")
       .attr('fill', 'yellow')
       .call(yAxis);
@@ -110,8 +110,6 @@ export default function BarChart(props: Props) {
     const result_freq_extent = d3.extent(arrFreq, d => d);
     //@ts-ignore
     const x = d3.scaleLinear().domain(result_freq_extent).range([0, width]);
-    //@ts-ignore
-    // const x_scale_occupancy_freq = d3.scaleLinear().domain(occupancy_freq_extent).range([0, width]);
     
     const xAxis = d3.axisBottom(x)
       .ticks(18)
@@ -129,40 +127,69 @@ export default function BarChart(props: Props) {
       .attr("color", "white")
       .attr("font-size", "0.7rem");
 
+    const arr: RectData[] = [];
+    
+    for (let i = 0; i < data.occupancy.length; i++) {
+      const current = data.occupancy[i];
+      let x1 = x(current.frequency);
+      // do not render when x1 is greater than svg width
+      if (x1 > width) {
+        continue;
+      }
+      const y1 = 0;
+      
+      let x2;
+      if (current.next?.frequency) {
+        x2 = x(current.next?.frequency);
+        if (x2 > width) {
+          x2 = x(maxX);
+        }
+      } else {
+        //last 
+        x2 = x(maxX)
+      }
+      
+      // Do not render first rect when it's x1 is lower than 0 (overlap Y axis)
+      if (i == 0 && x1 < 0) {
+        continue;
+      }
+      if (i >= 1) {
+        const prev = data.occupancy[i-1];
+        let x0 = x(prev.frequency);
+        if (x0 < 0 && x1 < 0) {
+          continue;
+        }
+        if (x0 < 0 && (x1 > 0 || x1 < 0)) {
+          x1 = 0;
+        }
+      }
+      
+      const _width = Math.abs(x2 - x1);
+      const _height = y1;
+      arr.push({
+        x: x1,
+        y: y1,
+        width: _width,
+        height: _height,
+        value: current.value,
+        clr: color_finder_fn(current.value)
+      })
+    }
+    
     // Draw barchart
     svgEl.append("g")
       .attr("fill", "none")
       .selectAll('rect')
-      .data(data.occupancy)
+      .data(arr)
       .join('rect')
-      .style("fill", (d) => {
-        return color_finder_fn(d.value);
-      })
-      .style("stroke", (d) => {
-        return color_finder_fn(d.value);
-      })
-      .style("visibility", (d) => {
-        if (d.frequency < minX || d.frequency >= maxX) {
-          return "hidden"
-        }
-        return "visible"  
-      })
-      .attr("x", (d, i) => x(d.frequency))
-      .attr("y", 0)
-      .attr("width",  (d, i) => {
-        const x1 = x(d.frequency);
-        let x2;
-        if (d.next?.frequency) {
-          x2 = x(d.next?.frequency);
-        } else {
-          //last 
-          x2 = x(maxX)
-        }
-        return x2 - x1;
-      })
+      .style("fill", (d) => d.clr)
+      .style("stroke", (d) => d.clr)
+      .attr("x", (d, i) => d.x)
+      .attr("y", (d) => d.y)
+      .attr("width",  (d) => d.width)
       .attr("height", height)
     
-    // Line
+    // line generator
     const line = d3.line<RawValue>()
       .x(d => x(d.frequency))
       .y(d => y(d.rms))(data.result)
