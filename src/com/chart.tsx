@@ -1,9 +1,9 @@
 import * as d3 from 'd3';
 import React, { useEffect, useRef } from 'react';
-import { Data, RawValue } from './Model';
+import { useBarChart, useLineChart } from './chart-provider';
+import { LineDataNode } from './chart-data';
 
 type Props = {
-  data: Data;
   w: number;
   h: number;
   minX: number;
@@ -57,17 +57,23 @@ type RectData = {
   clr: string;
 }
 
-export default function BarChart(props: Props) {
+export default function Chart(props: Props) {
 
   const {
-    data,
     w,
     h,
     maxX
   } = props;
   
-  const arrRms = data.result.map(x => x.rms);
-  const arrFreq = data.result.map(x => x.frequency);
+  const {
+    lineData
+  } = useLineChart();
+  const {
+    barData
+  } = useBarChart();
+  
+  const arrRms = lineData.map(x => x.yVal);
+  const arrFreq = lineData.map(x => x.xVal);
 
   const svgRef = useRef(null);
   const margin = {top: 30, right: 30, bottom: 30, left: 40};
@@ -129,9 +135,9 @@ export default function BarChart(props: Props) {
 
     const arr: RectData[] = [];
     
-    for (let i = 0; i < data.occupancy.length; i++) {
-      const current = data.occupancy[i];
-      let x1 = x(current.frequency);
+    for (let i = 0; i < barData.length; i++) {
+      const current = barData[i];
+      let x1 = x(current.xVal);
       // do not render when x1 is greater than svg width
       if (x1 > width) {
         continue;
@@ -139,8 +145,8 @@ export default function BarChart(props: Props) {
       const y1 = 0;
       
       let x2;
-      if (current.next?.frequency) {
-        x2 = x(current.next?.frequency);
+      if (current.next?.xVal) {
+        x2 = x(current.next?.xVal);
         if (x2 > width) {
           x2 = x(maxX);
         }
@@ -154,8 +160,8 @@ export default function BarChart(props: Props) {
         continue;
       }
       if (i >= 1) {
-        const prev = data.occupancy[i-1];
-        let x0 = x(prev.frequency);
+        const prev = barData[i-1];
+        let x0 = x(prev.xVal);
         if (x0 < 0 && x1 < 0) {
           continue;
         }
@@ -171,8 +177,8 @@ export default function BarChart(props: Props) {
         y: y1,
         width: _width,
         height: _height,
-        value: current.value,
-        clr: color_finder_fn(current.value)
+        value: current.yVal,
+        clr: color_finder_fn(current.yVal)
       })
     }
     
@@ -190,9 +196,9 @@ export default function BarChart(props: Props) {
       .attr("height", height)
     
     // line generator
-    const line = d3.line<RawValue>()
-      .x(d => x(d.frequency))
-      .y(d => y(d.rms))(data.result)
+    const line = d3.line<LineDataNode>()
+      .x(d => x(d.xVal))
+      .y(d => y(d.yVal))(lineData)
 
     // Draw line
     svgEl.append("g")
@@ -260,11 +266,11 @@ export default function BarChart(props: Props) {
       
       const selectedFreq = arrFreq[nearest_x];
       // const selectedRms = arrRms[nearest_y];
-      const xs = data.result.filter(x => x.frequency === selectedFreq)
+      const xs = lineData.filter(x => x.xVal === selectedFreq)
       let pixPosX = x(selectedFreq);
-      let pixPosY = y(xs.length > 0 ? xs[0]?.rms : 0);
+      let pixPosY = y(xs.length > 0 ? xs[0]?.yVal : 0);
       
-      circleInfo.html(`(${selectedFreq} Hz, ${xs[0].rms/100} DB)`)
+      circleInfo.html(`(${selectedFreq} Hz, ${xs[0].yVal/100} DB)`)
          .attr("stroke", "pink")
          .attr("stroke-width", "1")
          .attr("x", pixPosX + 20)
@@ -279,7 +285,7 @@ export default function BarChart(props: Props) {
       circleInfo.style("opacity", 0)
     }
     // eslint-disable-next-line 
-  }, [data])//, arrFreq, arrRms, height, margin.left, margin.top, maxX, width])
+  }, [lineData])//, arrFreq, arrRms, height, margin.left, margin.top, maxX, width])
   
   return (
     <svg ref={svgRef} width={svgWidth} height={svgHeight}/>

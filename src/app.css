@@ -3,17 +3,19 @@ body {
 }
 
 .app {
+  padding: 30px;
+  margin: 30px;
+  border: 1px dashed white;
+  border-radius: 10px;
 }
 
 .lineChart {
   position: relative;
-  margin: 20px;
-  padding: 20px;
   overflow: auto;
 }
 
 .barChart {
-  margin: 10px;
+  //margin: 10px;
   padding: 3px;
   overflow: auto;
 }
