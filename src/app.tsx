@@ -11,16 +11,16 @@ function App() {
   const [data] = useFetch();
   const [rangeData, setRangeData] = useState<Data | null>(null);
 
-  const gap = 10000;
-  const width = 2200; //svg width
+  const gap = 1000;
+  const width = 2300; //svg width
   const rangeWidth = 2200; //slider width
 
-  const height = 700;
+  const height = 600;
   const min = 470000;
   const max = 698000;
 
   const defaultMinVal = min;
-  const defaultMaxVal = min + gap;
+  const defaultMaxVal = max;
   const unit = "Hz";
   const [minVal, setMinVal] = useState(defaultMinVal);
   const [maxVal, setMaxVal] = useState(defaultMaxVal);
@@ -59,7 +59,7 @@ function App() {
             />
           </div>
           <div className="lineChart">
-            <Chart  w={width} h={height} minX={minVal} maxX={maxVal}/>
+            <Chart w={width} h={height} minX={minVal} maxX={maxVal}/>
           </div>
 
         </div>

@@ -2,5 +2,9 @@
 
 Project was created to get to know D3 basics.
 
-
+#### Features (some are done some not):
+- Slider frequency scrolling
+- Scrolling
+- Zooming
+- Crosshair 
 
