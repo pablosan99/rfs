@@ -1,4 +1,3 @@
-import React from 'react';
 import SliderUnstyled, { sliderUnstyledClasses } from '@mui/base/SliderUnstyled';
 import { alpha, styled } from '@mui/system';
 

@@ -43,6 +43,7 @@ export default function LineChartProvider<TItem>(props: LineChartProviderProps<T
       } as LineDataNode
     })
     _setData(_items);
+    // eslint-disable-next-line 
   }, [data])
 
   return (
@@ -90,13 +91,13 @@ function buildLinkedList<TItem>(props: BarChartProps<TItem>): BarDataNode[] {
   }
 
   for (let i = 0; i < arr.length; i++) {
-    if (i == 0) {
+    if (i === 0) {
       const item = arr[i];
       const next = arr[i + 1];
       item.next = next;
       continue;
     }
-    if (i == arr.length - 1) {
+    if (i === arr.length - 1) {
       const item = arr[i];
       const prev = arr[i - 1];
       item.prev = prev;
@@ -126,6 +127,7 @@ export function BarChartProvider<TItem>(props: BarChartProviderProps<TItem>) {
   useEffect(() => {
     const xs = buildLinkedList<TItem>(props);
    _setData(xs);
+    // eslint-disable-next-line 
   }, [data])
 
   return (
