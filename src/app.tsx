@@ -11,7 +11,7 @@ function App() {
   const [data] = useFetch();
   const [rangeData, setRangeData] = useState<Data | null>(null);
 
-  const step = 1000;
+  const step = 500;
   const stepMultiplier = 1;
   const width = 2300; //svg width
 

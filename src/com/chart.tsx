@@ -86,34 +86,37 @@ function prepare_data(barData: BarDataNode[], maxX: number, minX: number, x: Sca
         //last 
         x2 = Math.round(x(maxX));
       }
-    }
-
-    if (i >= 1) {
-      const prev = current.prev;
-      let x0 = Math.round(x(prev!.xVal));
-      if (x0 < 0 && x1 > 0) {
-        const _width = Math.abs(x2);
-        arr.push({
-          x: 0,
-          y: y1,
-          width: _width,
-          height: y1,
-          value: prev!.yVal,
-          clr: color_finder_fn(prev!.yVal)
-        })
+      if (i >= 1) {
+        const prev = current.prev;
+        let x0 = Math.round(x(prev!.xVal));
+        if (x0 < 0 && x1 > 0) {
+          const _width = Math.abs(x2 - x0);
+          arr.push({
+            x: 0,
+            y: y1,
+            width: _width,
+            height: y1,
+            value: prev!.yVal,
+            clr: color_finder_fn(prev!.yVal)
+          })
+        }
       }
+      if (x1 < 0) {
+        x1 = 0;
+      }
+      const _width = Math.round(Math.abs(x2 - x1));
+      const _height = y1;
+      arr.push({
+        x: x1,
+        y: y1,
+        width: _width,
+        height: _height,
+        value: current.yVal,
+        clr: color_finder_fn(current.yVal)
+      })
     }
-    const _width = Math.round(Math.abs(x2 - x1));
-    const _height = y1;
-    arr.push({
-      x: x1,
-      y: y1,
-      width: _width,
-      height: _height,
-      value: current.yVal,
-      clr: color_finder_fn(current.yVal)
-    })
   }
+  //console.log('arr', arr);
   return arr;
 }
 
@@ -181,7 +184,7 @@ export default function Chart(props: Props) {
     const x = d3.scaleLinear().domain(result_freq_extent).range([0, width]);
     
     const xAxis = d3.axisBottom(x)
-      .ticks(width/150)
+      .ticks(width/70)
       .tickSize(2)
       .tickFormat((val) => `${val}`);
 
