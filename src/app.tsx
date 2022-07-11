@@ -3,7 +3,6 @@ import './app.css';
 import Chart from './com/chart';
 import { Data, Occupancy, RawValue } from './model';
 import useFetch from './fetch';
-import Slider from './com/slider';
 import LineChartProvider, { BarChartProvider } from './com/chart-provider';
 import Slider2 from './com/slider2';
 
@@ -22,7 +21,6 @@ function App() {
 
   const defaultMinVal = min;
   const defaultMaxVal = max;
-  const unit = "Hz";
   const [minVal, setMinVal] = useState<number>(defaultMinVal);
   const [maxVal, setMaxVal] = useState<number>(defaultMaxVal);
 
