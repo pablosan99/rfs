@@ -5,15 +5,16 @@ import { Data, Occupancy, RawValue } from './model';
 import useFetch from './fetch';
 import Slider from './com/slider';
 import LineChartProvider, { BarChartProvider } from './com/chart-provider';
+import Slider2 from './com/slider2';
 
 function App() {
 
   const [data] = useFetch();
   const [rangeData, setRangeData] = useState<Data | null>(null);
 
-  const gap = 1000;
+  const step = 1000;
+  const stepMultiplier = 1;
   const width = 2300; //svg width
-  const rangeWidth = 2200; //slider width
 
   const height = 600;
   const min = 470000;
@@ -22,8 +23,8 @@ function App() {
   const defaultMinVal = min;
   const defaultMaxVal = max;
   const unit = "Hz";
-  const [minVal, setMinVal] = useState(defaultMinVal);
-  const [maxVal, setMaxVal] = useState(defaultMaxVal);
+  const [minVal, setMinVal] = useState<number>(defaultMinVal);
+  const [maxVal, setMaxVal] = useState<number>(defaultMaxVal);
 
   useEffect(() => {
     const _filteredResult = data.result.filter((x, idx) => {
@@ -35,27 +36,27 @@ function App() {
     });
   }, [data, minVal, maxVal])
 
-  function handleSliderChange(val: number, type: 'min' | 'max') {
-    if (type == 'min') {
-      setMinVal(val);
+  function handleSlider2Change(event: Event, newValue: number | number[]) {
+    const [_min, _max] = newValue as number[];
+    
+    if (_min + (stepMultiplier * step) >= _max) {
       return;
     }
-    setMaxVal(val);
+    setMinVal(_min);
+    setMaxVal(_max);
   }
-
+  
   return rangeData && (
     <LineChartProvider<RawValue> data={rangeData.result} xKey={"frequency"} yKey={"rms"}>
       <BarChartProvider<Occupancy> data={rangeData.occupancy} xKey={"frequency"} yKey={"value"} height={height}>
         <div className="app">
           <div>
-            <Slider gap={gap}
-                    max={max}
-                    min={min}
-                    rangeWidth={rangeWidth}
-                    unit={unit}
-                    minVal={minVal}
-                    maxVal={maxVal}
-                    onChange={handleSliderChange}
+            <Slider2 
+              value={[minVal, maxVal]}
+              onChange={handleSlider2Change}
+              min={min}
+              max={max}
+              step={step}
             />
           </div>
           <div className="lineChart">

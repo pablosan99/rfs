@@ -3,21 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mui/base": "^5.0.0-alpha.88",
+    "@mui/system": "^5.8.7",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.182",
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "d3": "^7.4.4",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.4.4",
-    "web-vitals": "^2.1.4",
-    "lodash": "^4.17.21",
-    "@types/lodash": "^4.14.182"
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@types/d3": "^7.4.0",
