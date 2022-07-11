@@ -62,6 +62,7 @@ export default function Chart(props: Props) {
   const {
     w,
     h,
+    minX,
     maxX
   } = props;
   
@@ -136,40 +137,49 @@ export default function Chart(props: Props) {
     const arr: RectData[] = [];
     
     for (let i = 0; i < barData.length; i++) {
-      const current = barData[i];
-      let x1 = x(current.xVal);
-      // do not render when x1 is greater than svg width
-      if (x1 > width) {
-        continue;
-      }
+      let current = barData[i];
+
       const y1 = 0;
+      let x1 = 0;
+      let x2 = 0;
       
-      let x2;
-      if (current.next?.xVal) {
-        x2 = x(current.next?.xVal);
-        if (x2 > width) {
-          x2 = x(maxX);
-        }
-      } else {
-        //last 
-        x2 = x(maxX)
-      }
-      
-      // Do not render first rect when it's x1 is lower than 0 (overlap Y axis)
-      if (i === 0 && x1 < 0) {
+      if (current.xVal > maxX) {
         continue;
       }
+      if (current.xVal < minX) {
+        continue;
+      }
+      
+      if (current.xVal >= minX && current.xVal <= maxX) {
+        x1 = Math.round(x(current.xVal));
+        if (current.next?.xVal) {
+          x2 = Math.round(x(current.next?.xVal));
+          if (current.next.xVal > maxX) {
+            x2 = x(maxX);
+          }
+        } else {
+          //last 
+          x2 = Math.round(x(maxX));
+        }
+      }
+      
       if (i >= 1) {
         const prev = barData[i-1];
-        let x0 = x(prev.xVal);
-        if (x0 < 0 && x1 < 0) {
-          continue;
-        }
-        if (x0 < 0 && (x1 > 0 || x1 < 0)) {
-          x1 = 0;
-        }
+        let x0 = Math.round(x(prev.xVal));
+        //console.log(`min-max: `, minX, maxX, '[current: ',  current.xVal,  current.yVal, '] [prev: ', prev.xVal, prev.yVal, x0, x1, ']')
+        
+         if (x0 < 0 && x1 > 0) {
+           const _width = Math.abs(x2);
+           arr.push({
+             x: 0,
+             y: y1,
+             width: _width,
+             height: y1,
+             value: prev.yVal,
+             clr: color_finder_fn(prev.yVal)
+           })
+         }
       }
-      
       const _width = Math.abs(x2 - x1);
       const _height = y1;
       arr.push({
