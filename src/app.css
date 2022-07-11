@@ -20,6 +20,11 @@ body {
   overflow: auto;
 }
 
+.slider {
+  width: 2230px;
+  padding-left: 40px;
+}
+
 .eclChart {
   margin: 10px;
   padding: 3px;

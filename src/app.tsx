@@ -50,7 +50,7 @@ function App() {
     <LineChartProvider<RawValue> data={rangeData.result} xKey={"frequency"} yKey={"rms"}>
       <BarChartProvider<Occupancy> data={rangeData.occupancy} xKey={"frequency"} yKey={"value"} height={height}>
         <div className="app">
-          <div>
+          <div className="slider">
             <Slider2 
               value={[minVal, maxVal]}
               onChange={handleSlider2Change}
