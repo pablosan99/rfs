@@ -21,7 +21,7 @@ body {
 }
 
 .slider {
-  width: 2230px;
+  max-width: 2230px;
   padding-left: 40px;
 }
 
