@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useBarChart, useLineChart } from './chart-provider';
 import { BarDataNode, LineDataNode } from './chart-data';
 import { ScaleLinear } from 'd3';
@@ -136,11 +136,15 @@ export default function Chart(props: Props) {
     barData
   } = useBarChart();
 
+  const [rectSelected, setRectSelected] = useState(false);
+  const [x_window_center, set_x_window_center] = useState(560000)
+  const [x_window_width, set_x_window_width] = useState(150);
+  
   const y_values = lineData.map(x => x.yVal);
   const x_values = lineData.map(x => x.xVal);
 
   const svgRef = useRef(null);
-  const margin = {top: 30, right: 30, bottom: 30, left: 40};
+  const margin = {top: 30, right: 30, bottom: 70, left: 40};
   const width = w - margin.left - margin.right;
   const height = h - margin.top - margin.bottom;
 
@@ -269,21 +273,37 @@ export default function Chart(props: Props) {
       .style("opacity", 0)
       .attr("text-anchor", "left")
       .attr("alignment-baseline", "middle")
-    
+
     svgEl.append("rect")
-      .style("border", "1px solid red")
       .style("fill", "none")
       .style("pointer-events", "all")
       .attr("width", width)
       .attr("height", height)
-      .attr("position", "absolute")
-      .attr("top", 0)
-      .attr("left", 0)
+      // .attr("position", "absolute")
+      // .attr("top", 0)
+      // .attr("left", 0)
       .on("click", handleMouseClick)
       .on("mouseup", handleMouseUp)
       .on("mouseover", handleMouseOver)
       .on("mousemove", handleMouseMove)
       .on("mouseout", handleMouseOut)
+
+    const pix_start = x(x_window_center - x_window_width);
+    const pix_end = x(x_window_center + x_window_width);
+    const window_width = pix_end - pix_start
+    
+    svgEl.append('rect')
+      .attr("width", window_width)
+      .attr("height", height + 50)
+      .style("fill", "none")
+      .style("pointer-events", "all")
+      .attr('x', pix_start)
+      .attr("y", -5)
+      .attr("stroke", rectSelected ? "grey" : "lightgrey")
+      .attr("stroke-width", rectSelected ? 6 : 2)
+      .on("click", handleRectClick)
+      .on("mousemove", handleRectMove)
+      .on("keydown", handleKeyDown)
     
     const brush = d3.brushX().extent([[0,0], [width, height]])
       .on('end', updateChart)
@@ -291,6 +311,25 @@ export default function Chart(props: Props) {
     lineSvg.append("g")
       .attr("class", "brush")
       .call(brush)
+    
+    function handleRectClick(event: any) {
+      console.log("rect click")
+      setRectSelected(!rectSelected);
+    }
+    
+    function handleRectMove(event: any) {
+      console.log(event);
+      const [_posX, _posY] = d3.pointer(event);
+      const x0 = Math.round(x.invert(_posX));
+      console.log('rect move', x0);
+      if (rectSelected) {
+        set_x_window_center(x0);
+      }
+    }
+    
+    function handleKeyDown(event: any) {
+      console.log('keydown', event);
+    }
     
     function updateChart() {
       console.log('updateChart')
@@ -311,6 +350,7 @@ export default function Chart(props: Props) {
     }
 
     function handleMouseMove(event: any) {
+      console.log('mouse move')
       const [_posX] = d3.pointer(event);
 
       const posX = Math.abs(Math.round(_posX));
@@ -330,8 +370,7 @@ export default function Chart(props: Props) {
         .attr("stroke", "#bde0fe")
         .attr("stroke-width", "1")
         .attr("x", pixPosX + 20)
-        .attr("y", pixPosY);
-      circle
+        .attr("y", pixPosY)
         .attr('cx', pixPosX)
         .attr('cy', pixPosY)
     }
@@ -342,7 +381,7 @@ export default function Chart(props: Props) {
     }
 
     // eslint-disable-next-line 
-  }, [lineData])
+  }, [lineData, rectSelected, x_window_center])
 
   return (
     <svg ref={svgRef} width={svgWidth} height={svgHeight}/>
