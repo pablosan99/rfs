@@ -9,5 +9,5 @@ Project was created to get to know D3 basics.
 - Crosshair 
 
 Links:
-https://github.com/d3/d3/blob/main/API.md
-https://github.com/d3/d3/wiki
+- https://github.com/d3/d3/blob/main/API.md
+- https://github.com/d3/d3/wiki
