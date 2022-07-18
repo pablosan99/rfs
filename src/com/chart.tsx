@@ -9,6 +9,7 @@ type Props = {
   h: number;
   minX: number;
   maxX: number;
+  onDrag: (posX: number) => void;
 }
 
 const colors = [
@@ -126,7 +127,8 @@ export default function Chart(props: Props) {
     w,
     h,
     minX,
-    maxX
+    maxX,
+    onDrag
   } = props;
 
   const {
@@ -139,7 +141,8 @@ export default function Chart(props: Props) {
   const [rectSelected, setRectSelected] = useState(false);
   const [x_window_center, set_x_window_center] = useState(560000)
   const [x_window_width, set_x_window_width] = useState(150);
-  
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragDiff, setDragDiff] = useState(0);
   const y_values = lineData.map(x => x.yVal);
   const x_values = lineData.map(x => x.xVal);
 
@@ -151,26 +154,33 @@ export default function Chart(props: Props) {
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
 
+  const result_freq_extent = d3.extent(x_values, d => d);
+  const result_value_extent = d3.extent(y_values, (d) => d).reverse();
+  //@ts-ignore
+  const x = d3.scaleLinear().domain(result_freq_extent).range([0, width]);
+  //@ts-ignore
+  const y = d3.scaleLinear().domain(result_value_extent).range([0, height]);
+  
   useEffect(() => {
+    // Y scale fn
     
+    
+  }, [])
+  
+  useEffect(() => {
+
     const svg = d3.select(svgRef.current)
     svg.selectAll("*").remove();
-    
+
     const svgEl = svg
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-    // Create Y Axis
-    const result_value_extent = d3.extent(y_values, (d) => d).reverse();
-
-    // Scale fn
-    //@ts-ignore
-    const y = d3.scaleLinear().domain(result_value_extent).range([0, height]);
     const yAxis = d3.axisLeft(y)
-      .ticks(height/50)
+      .ticks(height / 50)
       .tickSize(3)
-      .tickFormat((val) => `${val}`);
-
+      .tickFormat((val) => isDragging ? "": `${val}`);
+    
     const yAxisGroup = svgEl.append("g")
       .attr("stroke", "grey")
       .attr("class", "y-axis")
@@ -183,26 +193,23 @@ export default function Chart(props: Props) {
       .attr("font-size", "0.7rem");
 
     // Create X Axis
-    const result_freq_extent = d3.extent(x_values, d => d);
-    //@ts-ignore
-    const x = d3.scaleLinear().domain(result_freq_extent).range([0, width]);
-    
+
     const xAxis = d3.axisBottom(x)
       .ticks(width/70)
-      .tickSize(2)
+      .tickSize(6)
       .tickFormat((val) => `${val}`);
-
+  
     const xAxisGroup = svgEl.append("g")
       .attr("transform", `translate(0, ${height})`)
-      .attr("color", "grey")
+      .attr("color", isDragging ? "white": "grey")
       .call(xAxis);
     xAxisGroup.selectAll("line")
-      .attr("stroke", "grey");
+      .attr("stroke", isDragging ? "white": "grey");
 
-    xAxisGroup.selectAll("text")
-      .attr("color", "grey")
-      .attr("font-size", "0.7rem");
-
+    // xAxisGroup.selectAll("text")
+    //    .attr("color", "grey")
+    //    .attr("font-size", "0.7rem");
+    
     const arr = prepare_data(barData, maxX, minX, x);
 
     // Draw barchart
@@ -220,27 +227,6 @@ export default function Chart(props: Props) {
       .attr("width", (d) => d.width)
       .attr("height", height)
 
-    // let clip = svgEl.append("defs").append("svg:clipPath")
-    //   .attr("id", "clip")
-    //   .append("svg:rect")
-    //   .attr("width", width )
-    //   .attr("height", height )
-    //   // .attr("x", 0)
-    //   // .attr("y", 0)
-    //   .attr("position", "absolute")
-    //   .attr("top", 0)
-    //   .attr("left", 0)
-    //
-    // const drag = d3.drag()
-    //   .on("drag", () => {
-    //     console.log('drag')
-    //   })
-    //   .on("start", (event) => {
-    //     console.log('start', event)
-    //   }).on("end", (event) => {
-    //     console.log('end', event);
-    //   })
-    //
     // line generator
     const line = d3.line<LineDataNode>()
       .x(d => x(d.xVal))
@@ -279,78 +265,65 @@ export default function Chart(props: Props) {
       .style("pointer-events", "all")
       .attr("width", width)
       .attr("height", height)
-      // .attr("position", "absolute")
-      // .attr("top", 0)
-      // .attr("left", 0)
       .on("click", handleMouseClick)
       .on("mouseup", handleMouseUp)
+      .on("mousedown", handleMouseDown)
       .on("mouseover", handleMouseOver)
       .on("mousemove", handleMouseMove)
       .on("mouseout", handleMouseOut)
-
-    const pix_start = x(x_window_center - x_window_width);
-    const pix_end = x(x_window_center + x_window_width);
-    const window_width = pix_end - pix_start
-    
-    svgEl.append('rect')
-      .attr("width", window_width)
-      .attr("height", height + 50)
-      .style("fill", "none")
-      .style("pointer-events", "all")
-      .attr('x', pix_start)
-      .attr("y", -5)
-      .attr("stroke", rectSelected ? "grey" : "lightgrey")
-      .attr("stroke-width", rectSelected ? 6 : 2)
-      .on("click", handleRectClick)
-      .on("mousemove", handleRectMove)
-      .on("keydown", handleKeyDown)
-    
-    const brush = d3.brushX().extent([[0,0], [width, height]])
+      .on("dragstart", handleDragStart)
+      
+    const brush = d3.brushX().extent([[0, 0], [width, height]])
       .on('end', updateChart)
-    
+
     lineSvg.append("g")
       .attr("class", "brush")
       .call(brush)
-    
-    function handleRectClick(event: any) {
-      console.log("rect click")
-      setRectSelected(!rectSelected);
-    }
-    
-    function handleRectMove(event: any) {
-      console.log(event);
-      const [_posX, _posY] = d3.pointer(event);
-      const x0 = Math.round(x.invert(_posX));
-      console.log('rect move', x0);
-      if (rectSelected) {
-        set_x_window_center(x0);
-      }
-    }
-    
-    function handleKeyDown(event: any) {
-      console.log('keydown', event);
-    }
-    
+
+
     function updateChart() {
       console.log('updateChart')
     }
-    
+
     function handleMouseClick(event: any) {
       const [_posX, _poxY] = d3.pointer(event);
-      console.log('click', _posX, _poxY);
+      const selection = d3.select(event.target);
+      console.log('selection', selection);
     }
-    
+
     function handleMouseUp(event: any) {
+      console.log('drag end');
+      const [_posX] = d3.pointer(event);
       
+      setIsDragging(false);
+      setDragDiff(0);
     }
     
+    function handleMouseDown(event: any) {
+      const [_posX] = d3.pointer(event)
+      console.log('drag start', _posX)
+      
+      setIsDragging(true);
+      setDragDiff(0);
+    }
+
     function handleMouseOver() {
       circle.style("opacity", 1);
       circleInfo.style("opacity", 1)
     }
 
     function handleMouseMove(event: any) {
-      console.log('mouse move')
+      //if we drag chart then disable other features i.e window selection
+      if (isDragging) {
+        circle.style("opacity", 0);
+        circleInfo.style("opacity", 0)
+        setDragDiff(event.movementX);
+      }
+      // If rect window selected then omit mouse move
+      if (rectSelected) {
+        handleWindowMove(event);
+        return;
+      }
       const [_posX] = d3.pointer(event);
 
       const posX = Math.abs(Math.round(_posX));
@@ -358,10 +331,10 @@ export default function Chart(props: Props) {
 
       const x0 = x.invert(posX);
       // const y0 = y.invert(posY);
-      
+
       const nearest_x = d3.bisectLeft(x_values, x0);
       const selectedFreq = x_values[nearest_x];
-      
+
       const xs = lineData.filter(x => x.xVal === selectedFreq)
       let pixPosX = x(selectedFreq);
       let pixPosY = y(xs.length > 0 ? xs[0]?.yVal : 0);
@@ -380,9 +353,65 @@ export default function Chart(props: Props) {
       circleInfo.style("opacity", 0)
     }
 
-    // eslint-disable-next-line 
-  }, [lineData, rectSelected, x_window_center])
+    function handleDragStart() {
+      console.log('handle drag start')
+    }
 
+    function handleDrag(event: any, d: any) {
+      console.log('handleDrag', event, d)
+    }
+
+    //Window
+    const pix_start = x(x_window_center - x_window_width);
+    const pix_end = x(x_window_center + x_window_width);
+    const window_width = pix_end - pix_start
+    if (pix_start < 0) {
+      return;
+    }
+    svgEl.append('rect')
+      .attr("width", window_width)
+      .attr("height", height + 50)
+      .style("fill", "none")
+      .style("pointer-events", "all")
+      .attr('x', pix_start)
+      .attr("y", -5)
+      .attr("stroke", rectSelected ? "grey" : "lightgrey")
+      .attr("stroke-width", rectSelected ? 6 : 2)
+      .on("click", handleWindowClick)
+      .on("mousemove", handleWindowMove)
+      .on("keydown", handleWindowKeyDown)
+      .on("mouseout", handleWindowMouseOut)
+
+    function handleWindowClick(event: any) {
+      setRectSelected(!rectSelected);
+      setIsDragging(false)
+    }
+
+    function handleWindowMove(event: any) {
+      if (rectSelected) {
+        const [_posX, _posY] = d3.pointer(event);
+        const x0 = Math.round(x.invert(_posX));
+        set_x_window_center(x0);
+      }
+    }
+
+    function handleWindowKeyDown(event: any) {
+      console.log('keydown', event);
+    }
+
+    function handleWindowMouseOut(event: any) {
+      //setRectSelected(false);
+    }
+    
+    // eslint-disable-next-line 
+  }, [lineData, rectSelected, x_window_center, isDragging, dragDiff])
+
+  useEffect(() => {
+    if (isDragging) {
+      onDrag(dragDiff);
+    }
+  }, [isDragging, dragDiff])
+  
   return (
     <svg ref={svgRef} width={svgWidth} height={svgHeight}/>
   )

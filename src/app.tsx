@@ -43,6 +43,20 @@ function App() {
     setMinVal(_min);
     setMaxVal(_max);
   }
+    
+  function handleDrag(diff: number) {
+    const _step = 5;
+    const newMinVal = minVal - (diff * _step);
+    if (newMinVal <= defaultMinVal) {
+      return;
+    }
+    const newMaxVal = maxVal - (diff * _step);
+    if (newMaxVal >= defaultMaxVal) {
+      return;
+    }
+    setMinVal(newMinVal);
+    setMaxVal(newMaxVal);
+  }
   
   return rangeData && (
     <LineChartProvider<RawValue> data={rangeData.result} xKey={"frequency"} yKey={"rms"}>
@@ -55,10 +69,11 @@ function App() {
               min={min}
               max={max}
               step={step}
+              disableSwap
             />
           </div>
           <div className="lineChart">
-            <Chart w={width} h={height} minX={minVal} maxX={maxVal}/>
+            <Chart w={width} h={height} minX={minVal} maxX={maxVal} onDrag={handleDrag}/>
           </div>
 
         </div>
