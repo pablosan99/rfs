@@ -140,7 +140,7 @@ export default function Chart(props: Props) {
 
   const [rectSelected, setRectSelected] = useState(false);
   const [x_window_center, set_x_window_center] = useState(560000)
-  const [x_window_width, set_x_window_width] = useState(150);
+  const [x_window_width] = useState(150);
   const [isDragging, setIsDragging] = useState(false);
   const [dragDiff, setDragDiff] = useState(0);
   const y_values = lineData.map(x => x.yVal);
@@ -286,15 +286,12 @@ export default function Chart(props: Props) {
     }
 
     function handleMouseClick(event: any) {
-      const [_posX, _poxY] = d3.pointer(event);
       const selection = d3.select(event.target);
       console.log('selection', selection);
     }
 
     function handleMouseUp(event: any) {
       console.log('drag end');
-      const [_posX] = d3.pointer(event);
-      
       setIsDragging(false);
       setDragDiff(0);
     }
@@ -357,10 +354,6 @@ export default function Chart(props: Props) {
       console.log('handle drag start')
     }
 
-    function handleDrag(event: any, d: any) {
-      console.log('handleDrag', event, d)
-    }
-
     //Window
     const pix_start = x(x_window_center - x_window_width);
     const pix_end = x(x_window_center + x_window_width);
@@ -389,7 +382,7 @@ export default function Chart(props: Props) {
 
     function handleWindowMove(event: any) {
       if (rectSelected) {
-        const [_posX, _posY] = d3.pointer(event);
+        const [_posX] = d3.pointer(event);
         const x0 = Math.round(x.invert(_posX));
         set_x_window_center(x0);
       }
@@ -403,13 +396,14 @@ export default function Chart(props: Props) {
       //setRectSelected(false);
     }
     
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [lineData, rectSelected, x_window_center, isDragging, dragDiff])
 
   useEffect(() => {
     if (isDragging) {
       onDrag(dragDiff);
     }
+    // eslint-disable-next-line
   }, [isDragging, dragDiff])
   
   return (
