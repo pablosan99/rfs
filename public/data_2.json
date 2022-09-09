@@ -1,0 +1,979 @@
+{
+  "result": [
+    {
+      "frequency": 470000,
+      "rms": -11333,
+      "peak": -10500
+    },
+    {
+      "frequency": 470039,
+      "rms": -11491,
+      "peak": -10400
+    },
+    {
+      "frequency": 470078,
+      "rms": -11255,
+      "peak": -9700
+    },
+    {
+      "frequency": 470117,
+      "rms": -9869,
+      "peak": -8900
+    },
+    {
+      "frequency": 470156,
+      "rms": -9558,
+      "peak": -8600
+    },
+    {
+      "frequency": 470195,
+      "rms": -9773,
+      "peak": -8700
+    },
+    {
+      "frequency": 470234,
+      "rms": -9689,
+      "peak": -8800
+    },
+    {
+      "frequency": 470273,
+      "rms": -9879,
+      "peak": -8900
+    },
+    {
+      "frequency": 470312,
+      "rms": -9728,
+      "peak": -8800
+    },
+    {
+      "frequency": 470351,
+      "rms": -9807,
+      "peak": -8700
+    },
+    {
+      "frequency": 470390,
+      "rms": -9695,
+      "peak": -8700
+    },
+    {
+      "frequency": 470429,
+      "rms": -9705,
+      "peak": -8800
+    },
+    {
+      "frequency": 470468,
+      "rms": -9622,
+      "peak": -8700
+    }
+  ],
+  "occupancy": [
+    {
+      "frequency": 470,
+      "value": 0
+    },
+    {
+      "frequency": 471,
+      "value": 0
+    },
+    {
+      "frequency": 472,
+      "value": 0
+    },
+    {
+      "frequency": 473,
+      "value": 0
+    },
+    {
+      "frequency": 474,
+      "value": 35.156249999999964
+    },
+    {
+      "frequency": 475,
+      "value": 63.28125
+    },
+    {
+      "frequency": 476,
+      "value": 88.28125000000003
+    },
+    {
+      "frequency": 477,
+      "value": 84.76562500000004
+    },
+    {
+      "frequency": 478,
+      "value": 78.51562500000003
+    },
+    {
+      "frequency": 479,
+      "value": 73.046875
+    },
+    {
+      "frequency": 480,
+      "value": 73.046875
+    },
+    {
+      "frequency": 481,
+      "value": 73.046875
+    },
+    {
+      "frequency": 482,
+      "value": 73.046875
+    },
+    {
+      "frequency": 483,
+      "value": 73.046875
+    },
+    {
+      "frequency": 484,
+      "value": 73.046875
+    },
+    {
+      "frequency": 485,
+      "value": 73.046875
+    },
+    {
+      "frequency": 486,
+      "value": 78.12500000000004
+    },
+    {
+      "frequency": 487,
+      "value": 85.15625000000003
+    },
+    {
+      "frequency": 488,
+      "value": 91.79687500000003
+    },
+    {
+      "frequency": 489,
+      "value": 95.70312500000003
+    },
+    {
+      "frequency": 490,
+      "value": 97.26562500000006
+    },
+    {
+      "frequency": 491,
+      "value": 92.96875
+    },
+    {
+      "frequency": 492,
+      "value": 87.10937499999999
+    },
+    {
+      "frequency": 493,
+      "value": 83.59375
+    },
+    {
+      "frequency": 494,
+      "value": 78.90625000000001
+    },
+    {
+      "frequency": 495,
+      "value": 76.17187500000001
+    },
+    {
+      "frequency": 496,
+      "value": 76.17187500000001
+    },
+    {
+      "frequency": 497,
+      "value": 76.17187500000001
+    },
+    {
+      "frequency": 498,
+      "value": 76.17187500000001
+    },
+    {
+      "frequency": 499,
+      "value": 76.17187500000001
+    },
+    {
+      "frequency": 500,
+      "value": 76.17187500000001
+    },
+    {
+      "frequency": 501,
+      "value": 76.17187500000001
+    },
+    {
+      "frequency": 502,
+      "value": 76.953125
+    },
+    {
+      "frequency": 503,
+      "value": 76.953125
+    },
+    {
+      "frequency": 504,
+      "value": 76.5625
+    },
+    {
+      "frequency": 505,
+      "value": 75.39062500000003
+    },
+    {
+      "frequency": 506,
+      "value": 75.00000000000004
+    },
+    {
+      "frequency": 507,
+      "value": 75.00000000000004
+    },
+    {
+      "frequency": 508,
+      "value": 75.00000000000004
+    },
+    {
+      "frequency": 509,
+      "value": 75.00000000000004
+    },
+    {
+      "frequency": 510,
+      "value": 75.00000000000004
+    },
+    {
+      "frequency": 511,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 512,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 513,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 514,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 515,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 516,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 517,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 518,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 519,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 520,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 521,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 522,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 523,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 524,
+      "value": 75.78125000000001
+    },
+    {
+      "frequency": 525,
+      "value": 75.78125000000001
+    },
+    {
+      "frequency": 526,
+      "value": 74.21874999999999
+    },
+    {
+      "frequency": 527,
+      "value": 74.21874999999999
+    },
+    {
+      "frequency": 528,
+      "value": 73.046875
+    },
+    {
+      "frequency": 529,
+      "value": 73.046875
+    },
+    {
+      "frequency": 530,
+      "value": 72.65625000000001
+    },
+    {
+      "frequency": 531,
+      "value": 72.65625000000001
+    },
+    {
+      "frequency": 532,
+      "value": 72.65625000000001
+    },
+    {
+      "frequency": 533,
+      "value": 72.65625000000001
+    },
+    {
+      "frequency": 534,
+      "value": 72.65625000000001
+    },
+    {
+      "frequency": 535,
+      "value": 72.65625000000001
+    },
+    {
+      "frequency": 536,
+      "value": 72.65625000000001
+    },
+    {
+      "frequency": 537,
+      "value": 71.87500000000004
+    },
+    {
+      "frequency": 538,
+      "value": 71.87500000000004
+    },
+    {
+      "frequency": 539,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 540,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 541,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 542,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 543,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 544,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 545,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 546,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 547,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 548,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 549,
+      "value": 73.43749999999999
+    },
+    {
+      "frequency": 550,
+      "value": 75.78125000000001
+    },
+    {
+      "frequency": 551,
+      "value": 76.17187500000001
+    },
+    {
+      "frequency": 552,
+      "value": 76.953125
+    },
+    {
+      "frequency": 553,
+      "value": 78.12500000000004
+    },
+    {
+      "frequency": 554,
+      "value": 78.12500000000004
+    },
+    {
+      "frequency": 555,
+      "value": 78.90625000000001
+    },
+    {
+      "frequency": 556,
+      "value": 79.29687500000001
+    },
+    {
+      "frequency": 557,
+      "value": 79.29687500000001
+    },
+    {
+      "frequency": 558,
+      "value": 79.6875
+    },
+    {
+      "frequency": 559,
+      "value": 79.6875
+    },
+    {
+      "frequency": 560,
+      "value": 79.6875
+    },
+    {
+      "frequency": 561,
+      "value": 79.6875
+    },
+    {
+      "frequency": 562,
+      "value": 80.46875
+    },
+    {
+      "frequency": 563,
+      "value": 81.25000000000004
+    },
+    {
+      "frequency": 564,
+      "value": 81.64062500000004
+    },
+    {
+      "frequency": 565,
+      "value": 80.85937499999999
+    },
+    {
+      "frequency": 566,
+      "value": 80.85937499999999
+    },
+    {
+      "frequency": 567,
+      "value": 79.6875
+    },
+    {
+      "frequency": 568,
+      "value": 79.6875
+    },
+    {
+      "frequency": 569,
+      "value": 79.6875
+    },
+    {
+      "frequency": 570,
+      "value": 79.6875
+    },
+    {
+      "frequency": 571,
+      "value": 79.6875
+    },
+    {
+      "frequency": 572,
+      "value": 79.6875
+    },
+    {
+      "frequency": 573,
+      "value": 79.6875
+    },
+    {
+      "frequency": 574,
+      "value": 81.25000000000004
+    },
+    {
+      "frequency": 575,
+      "value": 82.42187500000001
+    },
+    {
+      "frequency": 576,
+      "value": 80.46875
+    },
+    {
+      "frequency": 577,
+      "value": 79.6875
+    },
+    {
+      "frequency": 578,
+      "value": 78.90625000000001
+    },
+    {
+      "frequency": 579,
+      "value": 78.12500000000004
+    },
+    {
+      "frequency": 580,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 581,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 582,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 583,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 584,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 585,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 586,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 587,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 588,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 589,
+      "value": 78.12500000000004
+    },
+    {
+      "frequency": 590,
+      "value": 82.03125000000003
+    },
+    {
+      "frequency": 591,
+      "value": 87.10937499999999
+    },
+    {
+      "frequency": 592,
+      "value": 91.40625000000004
+    },
+    {
+      "frequency": 593,
+      "value": 96.484375
+    },
+    {
+      "frequency": 594,
+      "value": 100
+    },
+    {
+      "frequency": 595,
+      "value": 95.31250000000003
+    },
+    {
+      "frequency": 596,
+      "value": 91.01562500000004
+    },
+    {
+      "frequency": 597,
+      "value": 87.50000000000006
+    },
+    {
+      "frequency": 598,
+      "value": 84.37500000000004
+    },
+    {
+      "frequency": 599,
+      "value": 82.03125000000003
+    },
+    {
+      "frequency": 600,
+      "value": 81.64062500000004
+    },
+    {
+      "frequency": 601,
+      "value": 79.6875
+    },
+    {
+      "frequency": 602,
+      "value": 78.12500000000004
+    },
+    {
+      "frequency": 603,
+      "value": 76.5625
+    },
+    {
+      "frequency": 604,
+      "value": 75.39062500000003
+    },
+    {
+      "frequency": 605,
+      "value": 74.60937500000004
+    },
+    {
+      "frequency": 606,
+      "value": 73.43749999999999
+    },
+    {
+      "frequency": 607,
+      "value": 72.65625000000001
+    },
+    {
+      "frequency": 608,
+      "value": 71.87500000000004
+    },
+    {
+      "frequency": 609,
+      "value": 71.87500000000004
+    },
+    {
+      "frequency": 610,
+      "value": 71.48437500000004
+    },
+    {
+      "frequency": 611,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 612,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 613,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 614,
+      "value": 70.70312499999999
+    },
+    {
+      "frequency": 615,
+      "value": 70.70312499999999
+    },
+    {
+      "frequency": 616,
+      "value": 70.70312499999999
+    },
+    {
+      "frequency": 617,
+      "value": 70.70312499999999
+    },
+    {
+      "frequency": 618,
+      "value": 70.70312499999999
+    },
+    {
+      "frequency": 619,
+      "value": 70.70312499999999
+    },
+    {
+      "frequency": 620,
+      "value": 70.70312499999999
+    },
+    {
+      "frequency": 621,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 622,
+      "value": 75.78125000000001
+    },
+    {
+      "frequency": 623,
+      "value": 77.73437500000006
+    },
+    {
+      "frequency": 624,
+      "value": 81.25000000000004
+    },
+    {
+      "frequency": 625,
+      "value": 84.76562500000004
+    },
+    {
+      "frequency": 626,
+      "value": 87.50000000000006
+    },
+    {
+      "frequency": 627,
+      "value": 83.59375
+    },
+    {
+      "frequency": 628,
+      "value": 76.953125
+    },
+    {
+      "frequency": 629,
+      "value": 74.21874999999999
+    },
+    {
+      "frequency": 630,
+      "value": 71.87500000000004
+    },
+    {
+      "frequency": 631,
+      "value": 68.75000000000003
+    },
+    {
+      "frequency": 632,
+      "value": 68.75000000000003
+    },
+    {
+      "frequency": 633,
+      "value": 68.75000000000003
+    },
+    {
+      "frequency": 634,
+      "value": 68.75000000000003
+    },
+    {
+      "frequency": 635,
+      "value": 68.75000000000003
+    },
+    {
+      "frequency": 636,
+      "value": 68.75000000000003
+    },
+    {
+      "frequency": 637,
+      "value": 68.75000000000003
+    },
+    {
+      "frequency": 638,
+      "value": 69.14062500000001
+    },
+    {
+      "frequency": 639,
+      "value": 69.14062500000001
+    },
+    {
+      "frequency": 640,
+      "value": 69.53125000000001
+    },
+    {
+      "frequency": 641,
+      "value": 69.53125000000001
+    },
+    {
+      "frequency": 642,
+      "value": 69.53125000000001
+    },
+    {
+      "frequency": 643,
+      "value": 69.921875
+    },
+    {
+      "frequency": 644,
+      "value": 69.921875
+    },
+    {
+      "frequency": 645,
+      "value": 69.921875
+    },
+    {
+      "frequency": 646,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 647,
+      "value": 73.82812499999999
+    },
+    {
+      "frequency": 648,
+      "value": 74.21874999999999
+    },
+    {
+      "frequency": 649,
+      "value": 76.953125
+    },
+    {
+      "frequency": 650,
+      "value": 80.85937499999999
+    },
+    {
+      "frequency": 651,
+      "value": 80.85937499999999
+    },
+    {
+      "frequency": 652,
+      "value": 82.81250000000001
+    },
+    {
+      "frequency": 653,
+      "value": 84.76562500000004
+    },
+    {
+      "frequency": 654,
+      "value": 88.67187500000003
+    },
+    {
+      "frequency": 655,
+      "value": 92.96875
+    },
+    {
+      "frequency": 656,
+      "value": 95.31250000000003
+    },
+    {
+      "frequency": 657,
+      "value": 97.65625000000004
+    },
+    {
+      "frequency": 658,
+      "value": 99.609375
+    },
+    {
+      "frequency": 659,
+      "value": 95.70312500000003
+    },
+    {
+      "frequency": 660,
+      "value": 90.62499999999999
+    },
+    {
+      "frequency": 661,
+      "value": 87.10937499999999
+    },
+    {
+      "frequency": 662,
+      "value": 83.98437499999999
+    },
+    {
+      "frequency": 663,
+      "value": 81.64062500000004
+    },
+    {
+      "frequency": 664,
+      "value": 80.85937499999999
+    },
+    {
+      "frequency": 665,
+      "value": 80.85937499999999
+    },
+    {
+      "frequency": 666,
+      "value": 80.85937499999999
+    },
+    {
+      "frequency": 667,
+      "value": 80.46875
+    },
+    {
+      "frequency": 668,
+      "value": 80.46875
+    },
+    {
+      "frequency": 669,
+      "value": 80.46875
+    },
+    {
+      "frequency": 670,
+      "value": 80.46875
+    },
+    {
+      "frequency": 671,
+      "value": 80.46875
+    },
+    {
+      "frequency": 672,
+      "value": 80.46875
+    },
+    {
+      "frequency": 673,
+      "value": 80.46875
+    },
+    {
+      "frequency": 674,
+      "value": 81.64062500000004
+    },
+    {
+      "frequency": 675,
+      "value": 82.42187500000001
+    },
+    {
+      "frequency": 676,
+      "value": 82.42187500000001
+    },
+    {
+      "frequency": 677,
+      "value": 82.42187500000001
+    },
+    {
+      "frequency": 678,
+      "value": 82.81250000000001
+    },
+    {
+      "frequency": 679,
+      "value": 82.81250000000001
+    },
+    {
+      "frequency": 680,
+      "value": 83.98437499999999
+    },
+    {
+      "frequency": 681,
+      "value": 84.76562500000004
+    },
+    {
+      "frequency": 682,
+      "value": 82.81250000000001
+    },
+    {
+      "frequency": 683,
+      "value": 80.46875
+    },
+    {
+      "frequency": 684,
+      "value": 75.78125000000001
+    },
+    {
+      "frequency": 685,
+      "value": 74.21874999999999
+    },
+    {
+      "frequency": 686,
+      "value": 73.82812499999999
+    },
+    {
+      "frequency": 687,
+      "value": 71.87500000000004
+    },
+    {
+      "frequency": 688,
+      "value": 71.09374999999999
+    },
+    {
+      "frequency": 689,
+      "value": 70.31249999999999
+    },
+    {
+      "frequency": 690,
+      "value": 69.53125000000001
+    },
+    {
+      "frequency": 691,
+      "value": 68.75000000000003
+    },
+    {
+      "frequency": 692,
+      "value": 46.87499999999999
+    },
+    {
+      "frequency": 693,
+      "value": 20.312499999999993
+    },
+    {
+      "frequency": 694,
+      "value": 20.312499999999993
+    },
+    {
+      "frequency": 695,
+      "value": 20.312499999999993
+    },
+    {
+      "frequency": 696,
+      "value": 20.312499999999993
+    }
+  ]
+}

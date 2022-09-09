@@ -5,6 +5,7 @@ import { Data, Occupancy, RawValue } from './model';
 import useFetch from './fetch';
 import LineChartProvider, { BarChartProvider } from './com/chart-provider';
 import Slider2 from './com/slider2';
+import Slider3 from './com/slider3';
 
 function App() {
 
@@ -34,7 +35,12 @@ function App() {
     });
   }, [data, minVal, maxVal])
 
-  function handleSlider2Change(event: Event, newValue: number | number[]) {
+  function handleSlider3Change() {
+    
+  }
+  
+  function handleSlider2Change(event: Event, newValue: number | number[], activeThumb: number) {
+    console.log(activeThumb, event);
     const [_min, _max] = newValue as number[];
     
     if (_min + (stepMultiplier * step) >= _max) {
@@ -70,6 +76,16 @@ function App() {
               max={max}
               step={step}
               disableSwap
+            />
+          </div>
+
+          <div className="slider">
+            <Slider3
+              value={[minVal, maxVal]}
+              onChange={handleSlider3Change}
+              min={min}
+              max={max}
+              step={step}
             />
           </div>
           <div className="lineChart">
